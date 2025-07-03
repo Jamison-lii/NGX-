@@ -32,11 +32,11 @@ const LayoutWithNavbarInCommunity = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<LayoutWithNavbarForVisitors/>}/> 
-          <Route index element={<LandingPage />} />
+        <Route element={<LayoutWithNavbarForVisitors/>}/>  {/* Landing Page Navbar and Layout below*/ }
+          <Route path='/' element={<LandingPage />} />
 
 
-        <Route element={<LayoutWithNavbarInCommunity/>}/> 
+        <Route element={<LayoutWithNavbarInCommunity/>}/>  {/* Community Navbar and Layout below*/ }
          <Route path='/community' element={<HomePage />} />
       </Routes>
    </BrowserRouter> 
