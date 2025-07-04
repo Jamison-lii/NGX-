@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { navItems } from '../../Constants/constants'
 import { Menu, X } from "lucide-react";
 import { Globe, ChevronDown } from 'lucide-react';
@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
  import { NavLink } from 'react-router-dom';
 
 const NormalNavbar = () => {
+
+  const [openMobileDrawer, setOpenMobileDrawer] = useState(false)
+
+  const toggleDrawer = () => {
+      setOpenMobileDrawer(!openMobileDrawer); 
+  }
   return (
     <nav className="sticky top-0 z-50 py-3 backdrop-blur  border-neutral-700/80">
        <div className="container px-9 mx-auto relative text-sm">
@@ -40,20 +46,44 @@ const NormalNavbar = () => {
 
           {/* Hamburger Menu */}
           <div className=" flex justify-center  items-center">
-           <div className="flex items-center text-[#5F5F5F] space-x-1 py-2 px-2 font-normal text-[16px] hover:bg-neutral-200 rounded-md cursor-pointer">
+           <div className="flex items-center text-[#5F5F5F] space-x-1 py-2 pr-6 font-normal text-[16px] hover:bg-neutral-200 rounded-md cursor-pointer">
              <Globe className="w-5 h-5 text-[#5F5F5F]" />
            <span>EN</span>
-             <ChevronDown className="w-5 h-5" />
+             <ChevronDown className="w-4 h-4" />
              </div>
            <div className="py-2 px-1 hover:bg-neutral-200 text-[#5F5F5F] cursor-pointer">
-             <Menu className="w-6 h-6" />
+            <button onClick={toggleDrawer}>
+              {openMobileDrawer?<X className="w-8 h-8"  />:<Menu className="w-7 h-7 mt-[5px]" />}
+            </button>
+
+             { openMobileDrawer && (
+
+       <div
+  className={`fixed top-20 right-0 h-70 w-100 z-50 shadow-md  transform transition-transform duration-300 ease-in-out 
+    ${openMobileDrawer ? 'translate-x-0' : 'translate-x-full'}
+    bg-white/30 backdrop-blur-md
+  `}
+  
+>
+  <div className="px-4 py-2 mt-2 text-center bg-white/80 hover:bg-white/90 rounded-[5px] border-1 border-[#e3e3e3] shadow-lg text-[#5F5F5F] font-Inter text-sm cursor-pointer transition-colors duration-200 max-w-[350px] mx-auto">
+  Community (Vimaux Community)
+ 
+</div>
+ <hr className='max-w-[340px] border-[#CCCCCC] mt-2 mx-auto' />
+
+</div>
+
+         
+       )}
+            
             </div>
 
           </div>
 
           
         </div>
-         
+      
+       
           
 
        </div>

@@ -3,7 +3,7 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import NormalNavbar from './Components/LandingPageNavbar/LandingPageNavbar';
 import CommunityNavbar from './Components/CommunityNavbar/CommunityNavbar';
-import HomePage from './Pages/Community/HomePage';
+import HomePage from './Pages/CommunitySection/HomePage';
 import Projects from './Pages/Projects/Projects';
 import About from './Pages/About/About';
 import FAQ from './Pages/FAQ/FAQ';
