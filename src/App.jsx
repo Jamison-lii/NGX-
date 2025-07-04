@@ -1,46 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
-import LandingPage from './Pages/LandingPage/LandingPage'
-import NormalNavbar from './Components/LandingPageNavbar/LandingPageNavbar'
-import CommunityNavbar from './Components/CommunityNavbar/CommunityNavbar'
-import HomePage from './Pages/Community/HomePage'
-
+import { useState } from 'react';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import LandingPage from './Pages/LandingPage/LandingPage';
+import NormalNavbar from './Components/LandingPageNavbar/LandingPageNavbar';
+import CommunityNavbar from './Components/CommunityNavbar/CommunityNavbar';
+import HomePage from './Pages/Community/HomePage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   const LayoutWithNavbarForVisitors = () => {
-  return (
-    <>
-      <NormalNavbar />
-      <Outlet />
-    </>
-  );
-};
+    return (
+      <>
+        <NormalNavbar />
+        <Outlet />
+      </>
+    );
+  };
 
-const LayoutWithNavbarInCommunity = () => {
-  return (
-    <>
-      <CommunityNavbar />
-      <Outlet />
-    </>
-  );
-};
+  const LayoutWithNavbarInCommunity = () => {
+    return (
+      <>
+        <CommunityNavbar />
+        <Outlet />
+      </>
+    );
+  };
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<LayoutWithNavbarForVisitors/>}/>  {/* Landing Page Navbar and Layout below*/ }
-          <Route path='/' element={<LandingPage />} />
+        {/* Layout for Visitors */}
+        <Route element={<LayoutWithNavbarForVisitors />}>
+          <Route path="/" element={<LandingPage />} />
+        </Route>
 
-
-        <Route element={<LayoutWithNavbarInCommunity/>}/>  {/* Community Navbar and Layout below*/ }
-         <Route path='/community' element={<HomePage />} />
+        {/* Layout for Community */}
+        <Route element={<LayoutWithNavbarInCommunity />}>
+          <Route path="/community" element={<HomePage />} />
+        </Route>
       </Routes>
-   </BrowserRouter> 
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
