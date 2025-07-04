@@ -1,7 +1,9 @@
 import React from 'react'
 import { navItems } from '../../Constants/constants'
-import { Link, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Globe, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom'; 
+ import { NavLink } from 'react-router-dom';
 
 const NormalNavbar = () => {
   return (
@@ -16,12 +18,21 @@ const NormalNavbar = () => {
           </div>
 
 
-       <ul className="hidden text-[17px] text-[#5F5F5F] lg:flex ml-14 space-x-12">
+     
+
+<ul className="hidden lg:flex ml-14 space-x-12 text-[17px] text-[#5F5F5F]">
   {navItems.map((item, index) => (
     <li key={index}>
-      <Link to={item.href} className="hover:text-orange-500">
+      <NavLink
+        to={item.href}
+        className={({ isActive }) =>
+          isActive
+            ? 'text-black font-medium relative pl-4 before:content-[""] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:bg-[#4169E1] before:rounded-full'
+            : 'hover:text-black '
+        }
+      >
         {item.label}
-      </Link>
+      </NavLink>
     </li>
   ))}
 </ul>
