@@ -1,6 +1,6 @@
 import React from 'react'
 import { navItems } from '../../Constants/constants'
-import { Menu, X } from "lucide-react";
+import { Link, Menu, X } from "lucide-react";
 import { Globe, ChevronDown } from 'lucide-react';
 
 const NormalNavbar = () => {
@@ -16,16 +16,16 @@ const NormalNavbar = () => {
           </div>
 
 
-         {/* Desktop navigation*/}
-          <ul className="hidden text-[17px] text-[#5F5F5F] lg:flex ml-14 space-x-12">{/* hidden lg: causes this to be seen only on large screen sizes */}
-            {navItems.map((item, index) => (
-              <li key={index}>
-                <a href={item.href} className="hover:text-orange-500">
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+       <ul className="hidden text-[17px] text-[#5F5F5F] lg:flex ml-14 space-x-12">
+  {navItems.map((item, index) => (
+    <li key={index}>
+      <Link to={item.href} className="hover:text-orange-500">
+        {item.label}
+      </Link>
+    </li>
+  ))}
+</ul>
+
 
           {/* Hamburger Menu */}
           <div className=" flex justify-center  items-center">
