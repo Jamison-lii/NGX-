@@ -1,22 +1,23 @@
 import React from 'react'
 import { navItems } from '../../Constants/constants'
 import { Menu, X } from "lucide-react";
+import { Globe, ChevronDown } from 'lucide-react';
 
 const NormalNavbar = () => {
   return (
-    <nav className="sticky top-0 z-50 py-3 backdrop-blur border-b border-neutral-700/80">
-       <div className="container px-4 mx-auto relative text-sm">
+    <nav className="sticky top-0 z-50 py-3 backdrop-blur  border-neutral-700/80">
+       <div className="container px-9 mx-auto relative text-sm">
         
-        <div className="flex justify-between items-center">
+        <div className="flex font-Inter justify-between items-center">
 
           {/* logo */}
           <div className="flex items-center flex-shrink-0">
-            <span className="text-xl tracking-tight font-medium">NGX</span>
+            <span className="text-xl tracking-tight font-Inter text-[#5F5F5F] font-bold">NGX</span>
           </div>
 
 
          {/* Desktop navigation*/}
-          <ul className="hidden lg:flex ml-14 space-x-12">{/* hidden lg: causes this to be seen only on large screen sizes */}
+          <ul className="hidden text-[17px] text-[#5F5F5F] lg:flex ml-14 space-x-12">{/* hidden lg: causes this to be seen only on large screen sizes */}
             {navItems.map((item, index) => (
               <li key={index}>
                 <a href={item.href} className="hover:text-orange-500">
@@ -28,10 +29,12 @@ const NormalNavbar = () => {
 
           {/* Hamburger Menu */}
           <div className=" flex justify-center  items-center">
-            <div className="py-2 px-1 font-medium text-[19px]  hover:bg-neutral-200">
-              EN
-            </div>
-           <div className="py-2 px-1 hover:bg-neutral-200 cursor-pointer">
+           <div className="flex items-center text-[#5F5F5F] space-x-1 py-2 px-2 font-normal text-[16px] hover:bg-neutral-200 rounded-md cursor-pointer">
+             <Globe className="w-5 h-5 text-[#5F5F5F]" />
+           <span>EN</span>
+             <ChevronDown className="w-5 h-5" />
+             </div>
+           <div className="py-2 px-1 hover:bg-neutral-200 text-[#5F5F5F] cursor-pointer">
              <Menu className="w-6 h-6" />
             </div>
 
