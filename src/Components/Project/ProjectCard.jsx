@@ -1,5 +1,5 @@
 import React from 'react';
-import img1 from "../../assets/Photo's/img1.jpeg";
+import img1 from "../../assets/Photos/img1.jpeg";
 import { projects } from '../../Constants/constants';
 
 const ProjectCard = () => {
