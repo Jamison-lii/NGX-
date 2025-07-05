@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter } from 'lucide-react';
+import ProjectCard from '../../Components/Project/ProjectCard';
 
 const Projects = () => {
   return (
@@ -25,8 +26,10 @@ const Projects = () => {
 
       {/* Add your project/gallery grid here */}
       <div className="mt-8">
-        {/* Responsive grid goes here */}
+        {/* Responsive grid goes here */} 
+        <ProjectCard/> 
       </div>
+
     </div>
   );
 };
