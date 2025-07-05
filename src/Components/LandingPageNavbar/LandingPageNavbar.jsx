@@ -21,7 +21,7 @@ const NormalNavbar = () => {
               NGX
             </span>
           </div>
-
+          {/* Navigation Links */}
           <ul className="hidden lg:flex ml-14 space-x-12 text-[17px] text-[#5F5F5F]">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -57,15 +57,32 @@ const NormalNavbar = () => {
 
               {openMobileDrawer && (
                 <div
-                  className={`fixed top-20 bg-white/30 backdrop-blur-md right-0 h-70 w-100 z-50 shadow-md  transform transition-transform duration-300 ease-in-out 
+                  className={`fixed top-20 bg-white/30 rounded-md backdrop-blur-lg right-0 h-70 w-100 z-50 shadow-md  transform transition-transform duration-300 ease-in-out 
     ${openMobileDrawer ? "translate-x-0" : "translate-x-full"}
     
   `}
                 >
-                  <div className="px-4 py-2 mt-2 text-center bg-white/80 hover:bg-white/90 rounded-[5px] border-1 border-[#e3e3e3] shadow-lg text-[#5F5F5F] font-Inter text-sm cursor-pointer transition-colors duration-200 max-w-[350px] mx-auto">
+                  <div className="px-4 py-2 mt-2 text-center bg-white hover:bg-white/90 rounded-[5px] border-1 border-[#e3e3e3] shadow-lg text-[#5F5F5F] font-Inter text-sm cursor-pointer transition-colors duration-200 max-w-[350px] mx-auto">
                     Community (Vimaux Community)
                   </div>
                   <hr className="max-w-[340px] border-[#CCCCCC] mt-2 mx-auto" />
+                        
+                        <ul className="lg:hidden md:flex flex-col ml-14 space-x-12 text-[17px] text-[#5F5F5F]">
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <NavLink
+                  to={item.href}
+                  className={({ isActive }) =>
+                    isActive
+                      ? 'text-black font-medium relative pl-4 before:content-[""] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-2 before:h-2 before:bg-[#4169E1] before:rounded-full'
+                      : "hover:text-black "
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
                 </div>
               )}
             </div>

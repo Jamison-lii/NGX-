@@ -8,3 +8,12 @@
 @theme{
     --font-Inter: Inter, "sans-serif";
 }
+
+/* Hide scrollbar for all elements using 'no-scrollbar' */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
