@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Filter } from 'lucide-react';
 import ProjectCard from '../../Components/Project/ProjectCard';
+import GalleryCard from '../../Components/Project/GalleryCard';
 
 const Projects = () => {
+  const [tab, setTab] = useState('Projects')
+
+  const handleTabChange = (newTab) => {
+    setTab(newTab);
+  }
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-20 py-8">
       {/* Top bar with filters */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
         {/* Left side (Projects + Gallery) */}
         <div className="flex font-Inter space-x-4">
-          <button className="bg-[#ECF0FC] text-[#474747] px-4 py-1 rounded-2xl text-sm sm:text-base">
+          <button onClick={()=>{handleTabChange('Projects')}}  className={`${tab === 'Projects'? "bg-[#ECF0FC]": "bg-white"} text-[#474747] px-4 py-1 rounded-2xl text-sm sm:text-base`}>
             Projects
           </button>
-          <button className="bg-[#ECF0FC] text-[#474747] px-4 py-1 rounded-2xl text-sm sm:text-base">
+          <button onClick={()=>{handleTabChange('Gallery')}} className={`${tab === 'Gallery'? "bg-[#ECF0FC]": "bg-white"} text-[#474747] px-4 py-1 rounded-2xl text-sm sm:text-base`}>
             Gallery
           </button>
         </div>
@@ -24,10 +30,11 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Add your project/gallery grid here */}
+      
       <div className="mt-8">
-        {/* Responsive grid goes here */} 
-        <ProjectCard/> 
+       
+        {tab === 'Projects' ? (
+        <ProjectCard /> ) : (<GalleryCard />)}
       </div>
 
     </div>
