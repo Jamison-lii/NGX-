@@ -14,6 +14,7 @@ const GalleryCard = () => {
 
   return (
     <>
+    {/* Video */}
     <div className="w-full mb-6 font-Inter  shadow-lg rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="w-full h-[450px] bg-gray-200 relative">
         <video
@@ -41,7 +42,7 @@ const GalleryCard = () => {
         
     </div>
 
-
+{/*Image Caroussel */}
   <div className="w-full py-8">
   <div
     className="flex gap-6 px-4 overflow-x-auto no-scrollbar"
@@ -70,7 +71,7 @@ const GalleryCard = () => {
           <img
             src={src}
             alt={`Slide ${i}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover "
           />
         </div>
       );
