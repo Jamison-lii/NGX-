@@ -8,6 +8,7 @@ import Projects from './Pages/Projects/Projects';
 import About from './Pages/About/About';
 import FAQ from './Pages/FAQ/FAQ';
 import ContactUs from './Pages/ContactUs/ContactUs';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
       <>
         <NormalNavbar />
         <Outlet />
+          <Footer/>
       </>
     );
   };
@@ -26,6 +28,7 @@ function App() {
       <>
         <CommunityNavbar />
         <Outlet />
+          <Footer/>
       </>
     );
   };
@@ -41,6 +44,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<ContactUs />} />
         </Route>
+      
 
         {/* Layout for Community */}
         <Route element={<LayoutWithNavbarInCommunity />}>
@@ -48,6 +52,7 @@ function App() {
 
         </Route>
       </Routes>
+
     </BrowserRouter>
   );
 }
