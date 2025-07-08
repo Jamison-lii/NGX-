@@ -9,6 +9,7 @@ import About from './Pages/About/About';
 import FAQ from './Pages/FAQ/FAQ';
 import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Components/Footer/Footer';
+import { ModalProvider } from './Context/ModalContext';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,6 +35,7 @@ function App() {
   };
 
   return (
+    <ModalProvider>
     <BrowserRouter>
       <Routes>
         {/* Layout for Visitors */}
@@ -54,6 +56,7 @@ function App() {
       </Routes>
 
     </BrowserRouter>
+    </ModalProvider>
   );
 }
 

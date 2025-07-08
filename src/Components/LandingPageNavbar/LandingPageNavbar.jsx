@@ -4,12 +4,26 @@ import { Menu, X } from "lucide-react";
 import { Globe, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import  bg from '../../assets/Design/bg.jpg'
+import Login from "../Login/Login";
+import { useModal } from "../../Context/ModalContext";
 
 const NormalNavbar = () => {
   const [openMobileDrawer, setOpenMobileDrawer] = useState(false);
+  const [isLoginPoppedUpOpen, setIsLoginPopUpOpen] = useState(false);
 
   const toggleDrawer = () => {
     setOpenMobileDrawer(!openMobileDrawer);
+  };
+
+  const loginPopUp = () => {
+    setIsLoginPopUpOpen(!isLoginPoppedUpOpen);  
+  }
+
+  const { showModal } = useModal();
+
+  const openLogin = () => {
+    showModal(<Login />);
   };
   return (
     <nav className="sticky top-0 z-50 py-3 backdrop-blur  border-neutral-700/80">
@@ -62,7 +76,7 @@ const NormalNavbar = () => {
     
   `}
                 >
-                  <div className="px-4 py-2 mt-2 text-center bg-white hover:bg-white/90 rounded-[5px] border-1 border-[#e3e3e3] shadow-lg text-[#5F5F5F] font-Inter text-sm cursor-pointer transition-colors duration-200 max-w-[350px] mx-auto">
+                  <div onClick={()=>{openLogin()}} className="px-4 py-2 mt-2 text-center bg-white hover:bg-white/90 rounded-[5px] border-1 border-[#e3e3e3] shadow-lg text-[#5F5F5F] font-Inter text-sm cursor-pointer transition-colors duration-200 max-w-[350px] mx-auto">
                     Community (Vimaux Community)
                   </div>
                   <hr className="max-w-[340px] border-[#CCCCCC] mt-2 mx-auto" />
@@ -88,7 +102,10 @@ const NormalNavbar = () => {
             </div>
           </div>
         </div>
-      </div>
+
+        {/* Login Pop-up */} 
+      
+</div>
     </nav>
   );
 };
