@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 const ModalContext = createContext();
 
@@ -7,8 +7,8 @@ export const useModal = () => useContext(ModalContext);
 export const ModalProvider = ({ children }) => {
   const [content, setContent] = useState(null);
 
-  const showModal = (component) => setContent(component);
-  const hideModal = () => setContent(null);
+  const showModal = useCallback((component) => setContent(component), []);
+  const hideModal = useCallback(() => setContent(null), []);
 
   return (
     <ModalContext.Provider value={{ showModal, hideModal }}>

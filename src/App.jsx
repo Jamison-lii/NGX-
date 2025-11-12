@@ -9,7 +9,11 @@ import About from './Pages/About/About';
 import FAQ from './Pages/FAQ/FAQ';
 import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Components/Footer/Footer';
+import ProtectedRoute from './Context/ProtectedRoute'; 
 import { ModalProvider } from './Context/ModalContext';
+import { AuthProvider } from './Context/AuthContext';
+import Login from './Components/Login/Login';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -35,6 +39,7 @@ function App() {
   };
 
   return (
+    <AuthProvider>
     <ModalProvider>
     <BrowserRouter>
       <Routes>
@@ -45,18 +50,27 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path='/login' element={<Login/>}/> 
         </Route>
       
 
         {/* Layout for Community */}
         <Route element={<LayoutWithNavbarInCommunity />}>
-          <Route path="/community" element={<HomePage />} /> 
+          <Route
+            path="/community"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
 
         </Route>
       </Routes>
 
     </BrowserRouter>
     </ModalProvider>
+    </AuthProvider>
   );
 }
 
