@@ -55,11 +55,7 @@ const NormalNavbar = () => {
 
           {/* Hamburger Menu */}
           <div className=" flex justify-center  items-center">
-            <div className="flex items-center text-[#5F5F5F] space-x-1 py-2 pr-6 font-normal text-[16px] hover:bg-neutral-200 rounded-md cursor-pointer">
-              <Globe className="w-5 h-5 text-[#5F5F5F]" />
-              <span>EN</span>
-              <ChevronDown className="w-4 h-4" />
-            </div>
+           
             <div className="py-2 px-1 hover:bg-neutral-200 text-[#5F5F5F] cursor-pointer">
               <button onClick={toggleDrawer}>
                 {openMobileDrawer ? (
