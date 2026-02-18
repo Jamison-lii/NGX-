@@ -26,7 +26,7 @@ const NormalNavbar = () => {
     showModal(<Login />);
   };
   return (
-    <nav className="sticky top-0 z-50 py-3 backdrop-blur  border-neutral-700/80">
+    <nav className="sticky top-0 z-50 py-3 bg-white  border-neutral-700/80">
       <div className="container px-9 mx-auto relative text-sm">
         <div className="flex font-Inter justify-between items-center">
           {/* logo */}

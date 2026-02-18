@@ -15,9 +15,12 @@ import {
 import img1 from '../../assets/Photos/img1.jpeg';
 import img2 from '../../assets/Photos/img2.jpeg';
 import img3 from '../../assets/Photos/img3.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const fadeIn = {
     initial: { opacity: 0, y: 30 },
@@ -25,6 +28,15 @@ const LandingPage = () => {
     viewport: { once: true },
     transition: { duration: 0.8, ease: "easeOut" }
   };
+
+  const naviagatetoProjects = () => {
+    navigate('/projects');
+  }
+  const naviagatetoAbout = () => {
+    navigate('/about');
+  }
+
+
 
   const brandColor = "#4169E1"; // Royal Blue
 
@@ -52,10 +64,10 @@ const LandingPage = () => {
               Building a modern, secure framework to showcase NGX’s global impact and foster internal collaboration.
             </p>
             <div className="flex flex-col sm:row gap-5">
-              <button className="bg-[#4169E1] text-white px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 group hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200">
+              <button onClick={naviagatetoProjects} className="bg-[#4169E1] text-white px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 group hover:bg-blue-700 transition-all shadow-2xl shadow-blue-200">
                 Explore Projects <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
               </button>
-              <button className="border border-slate-200 px-10 py-5 rounded-2xl font-bold hover:bg-slate-50 transition-all">
+              <button onClick={naviagatetoAbout} className="border border-slate-200 px-10 py-5 rounded-2xl font-bold hover:bg-slate-50 transition-all">
                 Our Mission
               </button>
             </div>
