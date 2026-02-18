@@ -1,22 +1,21 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useModal } from "./ModalContext";
-import { useEffect, useState } from "react";
-import Login from "../Components/Login/Login";// your modal component
+import { useEffect } from "react";
+import Login from "../Components/Login/Login";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
-  const { showModal } = useModal();
-  const [redirect, setRedirect] = useState(false);
+  const { showModal, hideModal } = useModal();
 
+  // If no user, show login modal then block access
   useEffect(() => {
     if (!user) {
-      showModal(<Login />); // trigger modal AFTER render
-      setRedirect(true);          // trigger redirect
-    }
-  }, [user, showModal]); // ✅ dependencies stable
+      showModal(<Login />);
+    }hideModal();
+  }, [user]);
 
-  if (redirect === false) {
+  if (!user) {
     return <Navigate to="/" replace />;
   }
 

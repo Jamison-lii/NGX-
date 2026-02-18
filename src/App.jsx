@@ -39,9 +39,11 @@ function App() {
   };
 
   return (
-    <AuthProvider>
-    <ModalProvider>
+    
+    
     <BrowserRouter>
+    <AuthProvider>
+      <ModalProvider>
       <Routes>
         {/* Layout for Visitors */}
         <Route element={<LayoutWithNavbarForVisitors />}>
@@ -67,10 +69,11 @@ function App() {
 
         </Route>
       </Routes>
-
-    </BrowserRouter>
+      
     </ModalProvider>
     </AuthProvider>
+    </BrowserRouter>
+   
   );
 }
 

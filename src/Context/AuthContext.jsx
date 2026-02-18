@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 const AuthContext = createContext();
 
@@ -6,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   // For example: check localStorage on app start
   useEffect(() => {
@@ -16,6 +20,8 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+    navigate("/community"); 
+    console.log("User logged in:", userData);
   };
 
   const logout = () => {
