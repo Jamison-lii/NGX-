@@ -31,7 +31,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       
-      {/* --- HERO SECTION --- */}
+      {/* HERO SECTION */}
       <section className="relative pt-10 pb-20 lg:pt-28 lg:pb-32">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           <motion.div 
@@ -42,13 +42,18 @@ const LandingPage = () => {
             <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-50 text-[#4169E1] text-xs font-bold uppercase tracking-widest">
               NGX: Non-Governmental Xenials
             </div>
+
             <h1 className="text-6xl lg:text-8xl font-extrabold leading-[1.1] mb-8 tracking-tight">
-              Igniting <span style={{ color: brandColor }}>Passion.</span><br />
-              Empowering <span className="text-slate-300">Innovation.</span>
+              Supporting <span style={{ color: brandColor }}>Children.</span><br />
+              Strengthening <span className="text-slate-300">Communities.</span>
             </h1>
+
             <p className="text-xl text-slate-500 mb-10 max-w-lg leading-relaxed font-light">
-              A modern, secure framework dedicated to showcasing global impact, empowering youth, and fostering internal collaboration through technology.
+              NGX is committed to aiding orphanages and bringing joy, hope, and opportunity 
+              to children and communities. Through compassion, trust, and consistent effort, 
+              NGX works to create a future where every child feels supported and valued.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-5">
               <button 
                 onClick={() => navigate('/projects')} 
@@ -56,6 +61,7 @@ const LandingPage = () => {
               >
                 See Our Work <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
               </button>
+
               <button 
                 onClick={() => navigate('/about')} 
                 className="border border-slate-200 px-10 py-5 rounded-2xl font-bold hover:bg-slate-50 transition-all"
@@ -83,19 +89,31 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* --- CORE PILLARS --- */}
+      {/* CORE PILLARS */}
       <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-[#4169E1] font-bold tracking-[0.3em] uppercase text-sm mb-4">The NGX Mission</h2>
-            <h3 className="text-4xl md:text-5xl font-bold">Building a Visionary Future</h3>
+            <h3 className="text-4xl md:text-5xl font-bold">Creating Lasting Impact</h3>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: 'Morphing', desc: 'Adapting to the needs of the next generation through creative solutions.', icon: <Zap size={24}/> },
-              { title: 'Analyzing', desc: 'Using data-driven insights to maximize project efficiency.', icon: <BarChart3 size={24}/> },
-              { title: 'Securing', desc: 'Providing a safe and professional digital environment for collaboration.', icon: <ShieldCheck size={24}/> }
+              { 
+                title: 'Care', 
+                desc: 'Supporting orphanages and bringing encouragement and joy to children through meaningful outreach and community support.', 
+                icon: <Users size={24}/> 
+              },
+              { 
+                title: 'Trust', 
+                desc: 'Building strong relationships with communities through integrity, compassion, and dependable action.', 
+                icon: <ShieldCheck size={24}/> 
+              },
+              { 
+                title: 'Consistency', 
+                desc: 'Maintaining a long-term commitment to improving the lives of children through continuous support and engagement.', 
+                icon: <Target size={24}/> 
+              }
             ].map((item, i) => (
               <motion.div 
                 key={i}
@@ -112,7 +130,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* --- THE GEODE COMMUNITY FEATURE --- */}
+      {/* VIMAUX COMMUNITY */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-20 items-center">
@@ -124,65 +142,85 @@ const LandingPage = () => {
             <motion.div {...fadeIn}>
               <h2 className="text-[#4169E1] font-bold tracking-[0.3em] uppercase text-sm mb-6">Internal Collaboration</h2>
               <h3 className="text-5xl font-black mb-8 tracking-tighter">Vimaux Community</h3>
+
               <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                A private, restricted-access ecosystem where colleagues view confidential updates, share discussions, and access high-security documentation.
+                Vimaux is NGX’s internal community platform where members collaborate, 
+                share updates, and coordinate projects focused on supporting children, 
+                orphanages, and community outreach initiatives.
               </p>
+
               <ul className="space-y-4 mb-10">
                 <li className="flex items-center gap-3 text-slate-700 font-medium">
                   <Target size={20} className="text-[#4169E1]" /> Role-based Authentication
                 </li>
                 <li className="flex items-center gap-3 text-slate-700 font-medium">
-                  <Target size={20} className="text-[#4169E1]" /> Confidential Posts Area
+                  <Target size={20} className="text-[#4169E1]" /> Community Updates & Posts
                 </li>
                 <li className="flex items-center gap-3 text-slate-700 font-medium">
-                  <Target size={20} className="text-[#4169E1]" /> Secure Document Vault
+                  <Target size={20} className="text-[#4169E1]" /> Shared Documents & Projects
                 </li>
               </ul>
+
               <button 
                 onClick={() => navigate('/login')}
                 className="bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold hover:bg-[#4169E1] transition-all"
               >
-                Access Geode
+                Access Vimaux
               </button>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* --- PUBLIC REACH --- */}
+      {/* GLOBAL IMPACT */}
       <section className="py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Global Impact</h2>
-            <p className="text-slate-500 mt-4 text-xl">Transparency in every mission, documented for the world.</p>
+            <p className="text-slate-500 mt-4 text-xl">
+              Supporting children, orphanages, and communities through meaningful action.
+            </p>
           </div>
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100">
                <Globe className="text-[#4169E1] mb-6" size={40} />
-               <h4 className="text-2xl font-bold mb-4">Public Projects</h4>
-               <p className="text-slate-500">A detailed gallery and project board showcasing our completed field work.</p>
+               <h4 className="text-2xl font-bold mb-4">Orphanage Support</h4>
+               <p className="text-slate-500">
+               Working with orphanages to provide encouragement, visibility,
+               and support for children who need care and attention.
+               </p>
             </div>
+
             <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100">
                <Users className="text-[#4169E1] mb-6" size={40} />
-               <h4 className="text-2xl font-bold mb-4">Empowerment</h4>
-               <p className="text-slate-500">Providing tools and frameworks to help local populations scale their ideas.</p>
+               <h4 className="text-2xl font-bold mb-4">Community Empowerment</h4>
+               <p className="text-slate-500">
+               Strengthening communities by supporting young people
+               and creating opportunities for positive growth.
+               </p>
             </div>
+
             <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100">
                <Zap className="text-[#4169E1] mb-6" size={40} />
-               <h4 className="text-2xl font-bold mb-4">Innovation</h4>
-               <p className="text-slate-500">Modernizing the way NGOs interact with donors, members, and the public.</p>
+               <h4 className="text-2xl font-bold mb-4">Consistent Mission</h4>
+               <p className="text-slate-500">
+               Since launching this mission on May 1st 2024,
+               NGX continues to work consistently toward helping children and communities.
+               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- FINAL CTA --- */}
+      {/* FINAL CTA */}
       <section className="py-40 bg-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div {...fadeIn}>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-10">
-              Be Part of the <span className="text-[#4169E1]">NGX Movement.</span>
+              Be Part of the <span className="text-[#4169E1]">NGX Mission.</span>
             </h2>
+
             <button 
               onClick={() => navigate('/contact')} 
               className="bg-[#4169E1] text-white px-12 py-6 rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-blue-200"
@@ -192,7 +230,7 @@ const LandingPage = () => {
           </motion.div>
         </div>
       </section>
-      
+
     </div>
   );
 };
