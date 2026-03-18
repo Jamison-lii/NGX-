@@ -51,8 +51,8 @@ const FAQ = () => {
       answer: "It is the philosophical foundation of our organization, derived from four core principles: Auxillium (Aid), Lux (Light), Amare (Love), and Visio Futurum (Visionary Future). Together, these form our commitment to providing aid and light to the world through a lens of love and foresight."
     },
     {
-      question: "What is the Geode Community?",
-      answer: "Geode is the private section of our digital ecosystem. It is a secure hub where VIMAUX members and authorized diplomats collaborate, share confidential documents, and discuss internal project strategies that are not yet ready for public disclosure."
+      question: "What is the Vimaux Community?",
+      answer: "Vimaux is the private section of our digital ecosystem. It is a secure hub where VIMAUX members and authorized diplomats collaborate, share confidential documents, and discuss internal project strategies that are not yet ready for public disclosure."
     },
     {
       question: "I heard about 'Vimaux Genesis'—what is that?",
