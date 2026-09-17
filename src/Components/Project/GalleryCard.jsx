@@ -11,7 +11,7 @@ import {
 
 import { images as staticImages } from "../../Constants/constants";
 
-const WORKER_URL = import.meta.env.VITE_WORKER_URL;
+const WORKER_URL = import.meta.env.WORKER_URL;
 
 const GalleryCard = ({ apiGallery }) => {
   const [galleryItems, setGalleryItems] = useState([]);
