@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
-const WORKER_URL = import.meta.env.WORKER_URL;
+const WORKER_URL = import.meta.env.VITE_WORKER_URL;
 
 function ProjectForm({
   currentUser,

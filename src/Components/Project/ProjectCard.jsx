@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { projects as staticProjects } from "../../Constants/constants";
 
-const WORKER_URL = import.meta.env.WORKER_URL;
+const WORKER_URL = import.meta.env.VITE_WORKER_URL; 
 
 const ProjectCard = ({ apiProjects }) => {
   const displayProjects =
