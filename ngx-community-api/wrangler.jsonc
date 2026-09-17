@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ngx-community-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-15",
+
+  "vars": {
+  "SUPABASE_URL": "https://omaibhdjvfkgivogyeoe.supabase.co",
+  "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_y8FhN5yTtkHEAZ2ScDC6_Q_RRtyk155"
+},
+  "r2_buckets": [
+   { "binding": "COMMUNITY_FILES", "bucket_name": "ngx-community-files", "remote": true }
+  ]
+}

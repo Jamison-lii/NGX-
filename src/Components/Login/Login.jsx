@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
+import { supabase } from "../../lib/supabase";
 
 export default function Login() {
   const [isSignup, setIsSignup] = useState(false);
@@ -37,50 +38,59 @@ export default function Login() {
     }));
   };
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
+ const handleLoginSubmit = async (e) => {
+  e.preventDefault();
 
-    const userData = {
-      id: "123",
-      fullName: "Test Man",
-      email: loginData.email,
-      role: "admin",
-      isAdmin: true,
-      permissions: {
-        create: true,
-        update: true,
-        delete: true,
-      },
-    };
+  try {
+    await login(loginData.email, loginData.password);
 
-    login(userData);
     navigate("/community");
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    alert(error.message);
+  }
+};
 
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
+const handleSignupSubmit = async (e) => {
+  e.preventDefault();
 
-    if (signupData.password !== signupData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
+  if (signupData.password !== signupData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: signupData.email,
+      password: signupData.password,
+      options: {
+        data: {
+          full_name: signupData.fullName,
+        },
+      },
+    });
+
+    if (error) {
+      throw error;
     }
 
-    const userData = {
-      id: "124",
-      fullName: signupData.fullName,
-      email: signupData.email,
-      role: "member",
-      isAdmin: false,
-      permissions: {
-        create: false,
-        update: false,
-        delete: false,
-      },
-    };
+    console.log("Signup successful:", data);
 
-    login(userData);
-    navigate("/community");
-  };
+    alert("Account created successfully. You can now log in.");
+
+    setIsSignup(false);
+
+    setSignupData({
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert(error.message);
+  }
+};
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#f7f7f8] px-4">

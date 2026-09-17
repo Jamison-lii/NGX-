@@ -1,5 +1,12 @@
-import { useMemo, useState } from "react";
+
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Menu, X } from "lucide-react";
+
 import CommunityHeader from "../../Components/CommunitySection/CommunityHeader";
 import CommunityTabs from "../../Components/CommunitySection/CommunityTabs";
 import PostComposer from "../../Components/CommunitySection/PostComposer";
@@ -9,116 +16,385 @@ import DocumentsPanel from "../../Components/CommunitySection/DocumentsPanel";
 import ProjectsPanel from "../../Components/CommunitySection/ProjectsPanel";
 import GalleryPanel from "../../Components/CommunitySection/GalleryPanel";
 
+import { useAuth } from "../../Context/AuthContext";
+import { supabase } from "../../lib/supabase";
+
 const tabs = ["Posts", "Documents", "Project", "Gallery"];
-
-const posts = [
-  {
-    id: 1,
-    author: "Test man",
-    role: "Community admin",
-    avatarLetter: "T",
-    content:
-      "Next Generation eXperience is a nonprofit organization committed to creating lasting impact through sustainable, community-driven development projects. We focus on areas like health, education, and the environment, empowering underserved populations through action, innovation, and collaboration.",
-    createdAt: "Wednesday 3:27 AM",
-    image: null,
-  },
-  {
-    id: 2,
-    author: "Test man",
-    role: "Community admin",
-    avatarLetter: "T",
-    content:
-      "Next Generation eXperience is a nonprofit organization committed to creating lasting impact through sustainable, community-driven development projects. We focus on areas like health, education, and the environment, empowering underserved populations through action, innovation, and collaboration.",
-    createdAt: "Wednesday 3:27 AM",
-    image:
-      "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1600&q=80",
-  },
-];
-
-const documents = [
-  {
-    id: 1,
-    title: "Community Guidelines",
-    description: "Rules and best practices for all Vimaux members.",
-    type: "PDF",
-  },
-  {
-    id: 2,
-    title: "Impact Report",
-    description: "A summary of NGX community outcomes and metrics.",
-    type: "DOCX",
-  },
-];
-
-const projects = [
-  {
-    id: 1,
-    title: "Cape Town Hillside Outreach",
-    date: "12/13/2025 - 12/14/2025",
-    description:
-      "A short outreach and engagement project focused on education, support, and visibility in the community.",
-    image:
-      "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1600&q=80",
-  },
-];
-
-const gallery = [
-  {
-    id: 1,
-    type: "image",
-    title: "Team field visit",
-    src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: 2,
-    type: "video",
-    title: "Community recap",
-    src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
-  },
-];
-
-const notifications = [
-  {
-    id: 1,
-    tone: "danger",
-    message: "You don’t have access to view private documents.",
-  },
-  {
-    id: 2,
-    tone: "success",
-    message: "You have been given access to view private documents.",
-  },
-];
-
-const profile = {
-  name: "Test man",
-  email: "transact@gmail.com",
-  password: "************",
-  avatarLetter: "T",
-};
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("Posts");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const [notifications, setNotifications] = useState([]);
+  const [notificationRefresh, setNotificationRefresh] = useState(0);
+
+  const [documents, setDocuments] = useState([]);
+  const [loadingDocuments, setLoadingDocuments] = useState(true);
+
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loadingGallery, setLoadingGallery] = useState(true);
+
+  const [projects, setProjects] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(false);
+
+  const { user } = useAuth();
+
+  console.log("USER IN HOMEPAGE:", user);
+
+  const profile = {
+    name: user?.fullName || "Community Member",
+    email: user?.email || "",
+    password: "************",
+    avatarLetter: (user?.fullName || "C")
+      .charAt(0)
+      .toUpperCase(),
+  };
+
+  // ----------------------------------------
+  // Check Supabase session
+  // ----------------------------------------
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data, error } =
+        await supabase.auth.getSession();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      console.log(
+        "SUPABASE ACCESS TOKEN:",
+        data.session?.access_token
+      );
+    };
+
+    checkSession();
+  }, []);
+
+  // ----------------------------------------
+  // Fetch projects
+  // ----------------------------------------
+
+  const fetchProjects = useCallback(async () => {
+    if (!user?.id) {
+      setProjects([]);
+      setLoadingProjects(false);
+      return;
+    }
+
+    setLoadingProjects(true);
+
+    const { data, error } = await supabase
+      .from("projects")
+      .select(
+        `
+          id,
+          title,
+          description,
+          start_date,
+          end_date,
+          image_file_name,
+          image_file_key,
+          image_file_type,
+          image_file_size,
+          created_by,
+          created_at,
+          updated_at
+        `
+      )
+      .order("created_at", {
+        ascending: false,
+      });
+
+    if (error) {
+      console.error(
+        "Error fetching projects:",
+        error
+      );
+
+      setProjects([]);
+      setLoadingProjects(false);
+      return;
+    }
+
+    setProjects(data || []);
+    setLoadingProjects(false);
+  }, [user?.id]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  // ----------------------------------------
+  // Fetch notifications
+  // ----------------------------------------
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!user?.id) {
+        setNotifications([]);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("notifications")
+        .select(
+          "id, type, title, message, is_read, created_at"
+        )
+        .eq("user_id", user.id)
+        .order("created_at", {
+          ascending: false,
+        });
+
+      if (error) {
+        console.error(
+          "Error fetching notifications:",
+          error
+        );
+        return;
+      }
+
+      setNotifications(data || []);
+    };
+
+    fetchNotifications();
+  }, [user?.id, notificationRefresh]);
+
+  // ----------------------------------------
+  // Notification created
+  // ----------------------------------------
+
+  const handleNotificationCreated = () => {
+    setNotificationRefresh(
+      (current) => current + 1
+    );
+  };
+
+  // ----------------------------------------
+  // Fetch documents
+  // ----------------------------------------
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      if (!user?.id) {
+        setDocuments([]);
+        setLoadingDocuments(false);
+        return;
+      }
+
+      setLoadingDocuments(true);
+
+      const { data, error } = await supabase
+        .from("documents")
+        .select(
+          "id, title, description, file_name, file_type, file_size, is_confidential, uploaded_by, created_at"
+        )
+        .order("created_at", {
+          ascending: false,
+        });
+
+      if (error) {
+        console.error(
+          "Error fetching documents:",
+          error
+        );
+
+        setLoadingDocuments(false);
+        return;
+      }
+
+      setDocuments(data || []);
+      setLoadingDocuments(false);
+    };
+
+    fetchDocuments();
+  }, [user?.id]);
+
+  // ----------------------------------------
+  // Fetch gallery
+  // ----------------------------------------
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      if (!user?.id) {
+        setGalleryItems([]);
+        setLoadingGallery(false);
+        return;
+      }
+
+      setLoadingGallery(true);
+
+      const { data, error } = await supabase
+        .from("gallery")
+        .select(
+          "id, title, type, file_name, file_key, file_type, file_size, uploaded_by, created_at"
+        )
+        .order("created_at", {
+          ascending: false,
+        });
+
+      if (error) {
+        console.error(
+          "Error fetching gallery:",
+          error
+        );
+
+        setGalleryItems([]);
+        setLoadingGallery(false);
+        return;
+      }
+
+      setGalleryItems(data || []);
+      setLoadingGallery(false);
+    };
+
+    fetchGallery();
+  }, [user?.id]);
+
+  // ----------------------------------------
+  // Refresh gallery after upload
+  // ----------------------------------------
+
+  const handleGalleryUploaded = async () => {
+    const { data, error } = await supabase
+      .from("gallery")
+      .select(
+        "id, title, type, file_name, file_key, file_type, file_size, uploaded_by, created_at"
+      )
+      .order("created_at", {
+        ascending: false,
+      });
+
+    if (error) {
+      console.error(
+        "Error refreshing gallery:",
+        error
+      );
+      return;
+    }
+
+    setGalleryItems(data || []);
+  };
+
+  // ----------------------------------------
+  // Sidebar notifications
+  // ----------------------------------------
+
+  const sidebarNotifications =
+    notifications.map((notification) => ({
+      ...notification,
+      tone: notification.is_read
+        ? "success"
+        : "danger",
+    }));
+
+  // ----------------------------------------
+  // Active panel
+  // ----------------------------------------
+
   const activePanel = useMemo(() => {
     switch (activeTab) {
       case "Documents":
-        return <DocumentsPanel documents={documents} />;
+        return (
+          <DocumentsPanel
+            documents={documents}
+            loading={loadingDocuments}
+            currentUser={user}
+            onDocumentUploaded={() => {
+              window.location.reload();
+            }}
+          />
+        );
+
       case "Project":
-        return <ProjectsPanel projects={projects} />;
+        return (
+          <ProjectsPanel
+            projects={projects}
+            currentUser={user}
+            loading={loadingProjects}
+            onProjectCreated={fetchProjects}
+          />
+        );
+
       case "Gallery":
-        return <GalleryPanel items={gallery} />;
+        return (
+          <GalleryPanel
+            items={galleryItems}
+            currentUser={user}
+            loading={loadingGallery}
+            onGalleryUploaded={
+              handleGalleryUploaded
+            }
+          />
+        );
+
       case "Posts":
       default:
         return (
           <div className="space-y-7">
             <PostComposer />
-            <PostFeed posts={posts} />
+            <PostFeed />
           </div>
         );
     }
-  }, [activeTab]);
+  }, [
+    activeTab,
+    documents,
+    loadingDocuments,
+    projects,
+    loadingProjects,
+    galleryItems,
+    loadingGallery,
+    user,
+    fetchProjects,
+  ]);
+
+  // ----------------------------------------
+  // Notifications realtime
+  // ----------------------------------------
+
+  useEffect(() => {
+    if (!user?.id) {
+      return;
+    }
+
+    const channel = supabase
+      .channel(`notifications-${user.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "notifications",
+          filter: `user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          console.log(
+            "New notification received:",
+            payload
+          );
+
+          setNotifications(
+            (currentNotifications) => [
+              payload.new,
+              ...currentNotifications,
+            ]
+          );
+        }
+      )
+      .subscribe((status) => {
+        console.log(
+          "Notifications realtime status:",
+          status
+        );
+      });
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id]);
 
   return (
     <div className="min-h-screen bg-[#f7f7f8] text-[#1f1f24]">
@@ -134,10 +410,15 @@ export default function HomePage() {
 
           <button
             type="button"
-            onClick={() => setIsSidebarOpen(true)}
+            onClick={() =>
+              setIsSidebarOpen(true)
+            }
             className="ml-4 shrink-0 rounded-full bg-white p-3 shadow-[0_10px_24px_rgba(17,24,39,0.08)]"
           >
-            <Menu className="h-5 w-5 text-[#2f3138]" strokeWidth={2.2} />
+            <Menu
+              className="h-5 w-5 text-[#2f3138]"
+              strokeWidth={2.2}
+            />
           </button>
         </div>
 
@@ -156,11 +437,21 @@ export default function HomePage() {
                 Welcome to Vimaux Community!
               </h1>
             )}
+
             {activePanel}
           </section>
 
           <div className="hidden xl:block">
-            <ProfileSidebar profile={profile} notifications={notifications} />
+            <ProfileSidebar
+              profile={profile}
+              notifications={
+                sidebarNotifications
+              }
+              currentUser={user}
+              onNotificationCreated={
+                handleNotificationCreated
+              }
+            />
           </div>
         </div>
       </main>
@@ -169,23 +460,36 @@ export default function HomePage() {
         <div className="fixed inset-0 z-50 xl:hidden">
           <div
             className="absolute inset-0 bg-black/40"
-            onClick={() => setIsSidebarOpen(false)}
+            onClick={() =>
+              setIsSidebarOpen(false)
+            }
           />
 
           <div className="absolute right-0 top-0 h-full w-[88%] max-w-[420px] overflow-y-auto bg-[#f7f7f8] p-4 shadow-2xl">
             <div className="mb-4 flex justify-end">
               <button
                 type="button"
-                onClick={() => setIsSidebarOpen(false)}
+                onClick={() =>
+                  setIsSidebarOpen(false)
+                }
                 className="rounded-full bg-white p-2 shadow-md"
               >
-                <X className="h-5 w-5 text-[#2f3138]" strokeWidth={2.2} />
+                <X
+                  className="h-5 w-5 text-[#2f3138]"
+                  strokeWidth={2.2}
+                />
               </button>
             </div>
 
             <ProfileSidebar
               profile={profile}
-              notifications={notifications}
+              notifications={
+                sidebarNotifications
+              }
+              currentUser={user}
+              onNotificationCreated={
+                handleNotificationCreated
+              }
             />
           </div>
         </div>
