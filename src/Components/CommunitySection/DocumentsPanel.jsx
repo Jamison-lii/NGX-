@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { supabase } from "../../lib/supabase";
 
-const WORKER_URL = import.meta.env.WORKER_URL;
+const WORKER_URL = import.meta.env.VITE_WORKER_URL;
 
 export default function DocumentsPanel({
   documents = [],
