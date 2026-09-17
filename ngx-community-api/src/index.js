@@ -1,6 +1,6 @@
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "http://localhost:5173",
+  "Access-Control-Allow-Origin": "https://ngx-demo.vercel.app",
   "Access-Control-Allow-Headers":
     "Authorization, Content-Type, X-File-Name",
   "Access-Control-Allow-Methods":

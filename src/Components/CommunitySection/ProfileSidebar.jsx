@@ -24,9 +24,9 @@ function SidebarRow({ label, value }) {
         </span>
       </div>
 
-      <button className="shrink-0 text-[16px] font-medium text-[#355dbb] underline underline-offset-2">
+    {/**  <button className="shrink-0 text-[16px] font-medium text-[#355dbb] underline underline-offset-2">
         Change
-      </button>
+      </button>*/}
     </div>
   );
 }
