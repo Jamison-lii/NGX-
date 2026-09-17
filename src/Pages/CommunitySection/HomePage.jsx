@@ -333,7 +333,7 @@ export default function HomePage() {
       case "Posts":
       default:
         return (
-          <div className="space-y-7">
+          <div className="w-full min-w-0 space-y-7">
             <PostComposer />
             <PostFeed />
           </div>
@@ -397,23 +397,28 @@ export default function HomePage() {
   }, [user?.id]);
 
   return (
-    <div className="min-h-screen bg-[#f7f7f8] text-[#1f1f24]">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#f7f7f8] text-[#1f1f24]">
       <CommunityHeader title="Vimaux Community" />
 
-      <main className="mx-auto max-w-[1480px] px-5 pb-10 pt-2 md:px-8 xl:px-10">
-        <div className="mb-4 flex items-center justify-between xl:hidden">
-          <CommunityTabs
-            tabs={tabs}
-            activeTab={activeTab}
-            onChange={setActiveTab}
-          />
+      <main className="mx-auto w-full max-w-[1480px] min-w-0 px-4 pb-10 pt-2 sm:px-5 md:px-8 xl:px-10">
+        {/* Mobile tabs */}
+        <div className="mb-4 flex w-full min-w-0 items-center gap-3 xl:hidden">
+          <div className="min-w-0 flex-1 overflow-x-auto">
+            <div className="w-max min-w-full">
+              <CommunityTabs
+                tabs={tabs}
+                activeTab={activeTab}
+                onChange={setActiveTab}
+              />
+            </div>
+          </div>
 
           <button
             type="button"
             onClick={() =>
               setIsSidebarOpen(true)
             }
-            className="ml-4 shrink-0 rounded-full bg-white p-3 shadow-[0_10px_24px_rgba(17,24,39,0.08)]"
+            className="shrink-0 rounded-full bg-white p-3 shadow-[0_10px_24px_rgba(17,24,39,0.08)]"
           >
             <Menu
               className="h-5 w-5 text-[#2f3138]"
@@ -422,6 +427,7 @@ export default function HomePage() {
           </button>
         </div>
 
+        {/* Desktop tabs */}
         <div className="hidden xl:block">
           <CommunityTabs
             tabs={tabs}
@@ -430,18 +436,21 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1.8fr)_480px]">
-          <section>
+        {/* Main content */}
+        <div className="mt-6 grid w-full min-w-0 gap-6 xl:mt-8 xl:grid-cols-[minmax(0,1.8fr)_480px] xl:gap-8">
+          <section className="w-full min-w-0 overflow-hidden">
             {activeTab === "Posts" && (
-              <h1 className="mb-8 text-5xl font-semibold tracking-[-0.04em] text-[#26262d]">
+              <h1 className="mb-6 max-w-full text-3xl font-semibold tracking-[-0.04em] text-[#26262d] sm:text-4xl xl:mb-8 xl:text-5xl">
                 Welcome to Vimaux Community!
               </h1>
             )}
 
-            {activePanel}
+            <div className="w-full min-w-0">
+              {activePanel}
+            </div>
           </section>
 
-          <div className="hidden xl:block">
+          <div className="hidden min-w-0 xl:block">
             <ProfileSidebar
               profile={profile}
               notifications={
@@ -456,6 +465,7 @@ export default function HomePage() {
         </div>
       </main>
 
+      {/* Mobile sidebar */}
       {isSidebarOpen && (
         <div className="fixed inset-0 z-50 xl:hidden">
           <div

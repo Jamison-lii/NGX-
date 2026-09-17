@@ -3,8 +3,6 @@ import {
   CalendarDays,
   ChevronDown,
   ImagePlus,
-  Pencil,
-  SlidersHorizontal,
   Trash2,
 } from "lucide-react";
 
@@ -12,6 +10,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
 const WORKER_URL = import.meta.env.VITE_WORKER_URL;
+
+// ----------------------------------------
+// Project Form
+// ----------------------------------------
 
 function ProjectForm({
   currentUser,
@@ -286,28 +288,29 @@ function ProjectForm({
   };
 
   return (
-    <section className="overflow-hidden rounded-[30px] border border-[#d7d9e0] bg-white shadow-[0_20px_45px_rgba(17,24,39,0.05)]">
+    <section className="w-full min-w-0 overflow-hidden rounded-[22px] border border-[#d7d9e0] bg-white shadow-[0_20px_45px_rgba(17,24,39,0.05)] sm:rounded-[30px]">
+      {/* Image upload */}
       <label
         htmlFor="project-image"
         className="block cursor-pointer"
       >
-        <div className="flex min-h-[310px] items-center justify-center bg-[#f3f4f6] transition hover:bg-[#eef0f3]">
+        <div className="flex min-h-[220px] w-full items-center justify-center overflow-hidden bg-[#f3f4f6] transition hover:bg-[#eef0f3] sm:min-h-[270px] md:min-h-[310px]">
           {preview ? (
             <img
               src={preview}
               alt="Project preview"
-              className="h-[310px] w-full object-cover"
+              className="h-[220px] w-full object-cover sm:h-[270px] md:h-[310px]"
             />
           ) : (
-            <div className="text-center text-[#9c9ea8]">
-              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full border border-[#d4d7df] bg-white/60">
+            <div className="px-5 py-8 text-center text-[#9c9ea8]">
+              <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-[#d4d7df] bg-white/60 sm:mb-4 sm:h-20 sm:w-20">
                 <ImagePlus
-                  className="h-10 w-10"
+                  className="h-8 w-8 sm:h-10 sm:w-10"
                   strokeWidth={1.7}
                 />
               </div>
 
-              <p className="text-lg tracking-[0.2em]">
+              <p className="text-base tracking-[0.2em] sm:text-lg">
                 •••
               </p>
 
@@ -315,7 +318,7 @@ function ProjectForm({
                 Drop
               </p>
 
-              <p className="mt-2 text-sm text-[#9c9ea8]">
+              <p className="mt-2 text-xs text-[#9c9ea8] sm:text-sm">
                 Click to choose an image
               </p>
             </div>
@@ -333,14 +336,16 @@ function ProjectForm({
         className="hidden"
       />
 
-      <div className="space-y-6 px-7 py-7 md:px-8">
-        <div className="grid gap-6 md:grid-cols-2">
-          <label className="block">
-            <span className="mb-3 block text-[16px] font-medium text-[#9fa2ad]">
+      {/* Form */}
+      <div className="space-y-5 px-4 py-5 sm:space-y-6 sm:px-6 sm:py-6 md:px-8 md:py-7">
+        <div className="grid min-w-0 gap-5 md:grid-cols-2 md:gap-6">
+          {/* Title */}
+          <label className="block min-w-0">
+            <span className="mb-2 block text-sm font-medium text-[#9fa2ad] sm:mb-3 sm:text-[16px]">
               Title
             </span>
 
-            <div className="flex items-center gap-3 border-b border-[#d3d5dc] pb-3">
+            <div className="flex min-w-0 items-center gap-3 border-b border-[#d3d5dc] pb-3">
               <input
                 type="text"
                 value={title}
@@ -350,17 +355,18 @@ function ProjectForm({
                   )
                 }
                 placeholder="Enter project title"
-                className="w-full bg-transparent text-[16px] outline-none placeholder:text-[#b2b5bf]"
+                className="w-full min-w-0 bg-transparent text-[15px] outline-none placeholder:text-[#b2b5bf] sm:text-[16px]"
               />
             </div>
           </label>
 
-          <label className="block">
-            <span className="mb-3 block text-[16px] font-medium text-[#9fa2ad]">
+          {/* Timeline */}
+          <label className="block min-w-0">
+            <span className="mb-2 block text-sm font-medium text-[#9fa2ad] sm:mb-3 sm:text-[16px]">
               Timeline
             </span>
 
-            <div className="flex items-center gap-3 border-b border-[#d3d5dc] pb-3">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 border-b border-[#d3d5dc] pb-3 sm:gap-3">
               <input
                 type="date"
                 value={startDate}
@@ -369,10 +375,10 @@ function ProjectForm({
                     event.target.value
                   )
                 }
-                className="w-full bg-transparent text-[16px] outline-none"
+                className="min-w-0 w-full bg-transparent text-sm outline-none sm:text-[16px]"
               />
 
-              <span className="text-sm text-[#9a9ca5]">
+              <span className="shrink-0 text-xs text-[#9a9ca5] sm:text-sm">
                 to
               </span>
 
@@ -384,16 +390,17 @@ function ProjectForm({
                     event.target.value
                   )
                 }
-                className="w-full bg-transparent text-[16px] outline-none"
+                className="min-w-0 w-full bg-transparent text-sm outline-none sm:text-[16px]"
               />
 
-              <ChevronDown className="h-5 w-5 shrink-0 text-[#9a9ca5]" />
+              <ChevronDown className="hidden h-5 w-5 shrink-0 text-[#9a9ca5] sm:block" />
             </div>
           </label>
         </div>
 
+        {/* Description */}
         <label className="block">
-          <span className="mb-3 block text-[16px] font-medium text-[#9fa2ad]">
+          <span className="mb-2 block text-sm font-medium text-[#9fa2ad] sm:mb-3 sm:text-[16px]">
             Description
           </span>
 
@@ -406,35 +413,45 @@ function ProjectForm({
               )
             }
             placeholder="Write project description"
-            className="w-full rounded-[24px] border border-[#d7d9e0] bg-[#fcfcfd] px-5 py-4 text-[16px] outline-none placeholder:text-[#b2b5bf] focus:border-[#b5c1f7]"
+            className="w-full resize-y rounded-[18px] border border-[#d7d9e0] bg-[#fcfcfd] px-4 py-3 text-[15px] outline-none placeholder:text-[#b2b5bf] focus:border-[#b5c1f7] sm:rounded-[24px] sm:px-5 sm:py-4 sm:text-[16px]"
           />
         </label>
 
+        {/* Selected image */}
         {file && (
-          <p className="text-sm text-[#6d707b]">
-            Selected image:{" "}
-            {file.name}
-          </p>
+          <div className="min-w-0 rounded-[14px] bg-[#f7f8fa] px-3 py-3 sm:px-4">
+            <p className="break-all text-xs text-[#6d707b] sm:text-sm">
+              Selected image:{" "}
+              {file.name}
+            </p>
+          </div>
         )}
 
+        {/* Error */}
         {error && (
-          <p className="text-sm text-red-600">
-            {error}
-          </p>
+          <div className="rounded-[14px] bg-red-50 px-3 py-3">
+            <p className="text-sm text-red-600">
+              {error}
+            </p>
+          </div>
         )}
 
+        {/* Success */}
         {success && (
-          <p className="text-sm text-green-600">
-            {success}
-          </p>
+          <div className="rounded-[14px] bg-green-50 px-3 py-3">
+            <p className="text-sm text-green-600">
+              {success}
+            </p>
+          </div>
         )}
 
-        <div className="flex items-center justify-center gap-4 pt-2">
+        {/* Buttons */}
+        <div className="flex flex-col-reverse gap-3 pt-1 sm:flex-row sm:items-center sm:justify-center sm:gap-4 sm:pt-2">
           <button
             type="button"
             onClick={handleCancel}
             disabled={posting}
-            className="rounded-full border border-[#61636c] px-8 py-2.5 text-[16px] font-medium text-[#61636c] transition hover:bg-[#f7f7f8] disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-full border border-[#61636c] px-6 py-3 text-sm font-medium text-[#61636c] transition hover:bg-[#f7f7f8] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-8 sm:py-2.5 sm:text-[16px]"
           >
             Cancel
           </button>
@@ -443,7 +460,7 @@ function ProjectForm({
             type="button"
             onClick={handleSubmit}
             disabled={posting}
-            className="inline-flex items-center gap-2 rounded-full bg-[#4f6fe8] px-8 py-2.5 text-[16px] font-semibold text-white shadow-[0_10px_24px_rgba(79,111,232,0.28)] transition hover:bg-[#4463da] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#4f6fe8] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(79,111,232,0.28)] transition hover:bg-[#4463da] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-8 sm:py-2.5 sm:text-[16px]"
           >
             <CalendarDays
               className="h-4 w-4"
@@ -677,10 +694,9 @@ function ProjectCard({
   };
 
   return (
-    <article
-      className="relative overflow-hidden rounded-[28px] border border-[#e0e1e8] bg-white shadow-[0_20px_45px_rgba(17,24,39,0.06)]"
-    >
-      <div className="flex h-[430px] w-full items-center justify-center overflow-hidden bg-[#f3f4f6]">
+    <article className="relative w-full min-w-0 overflow-hidden rounded-[22px] border border-[#e0e1e8] bg-white shadow-[0_20px_45px_rgba(17,24,39,0.06)] sm:rounded-[28px]">
+      {/* Project image */}
+      <div className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden bg-[#f3f4f6] sm:aspect-[16/9]">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -688,7 +704,7 @@ function ProjectCard({
             className="h-full w-full object-cover"
           />
         ) : imageLoading ? (
-          <div className="text-center text-[#9c9ea8]">
+          <div className="px-4 text-center text-[#9c9ea8]">
             <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-2 border-[#d8dbe3] border-t-[#4f6fe8]" />
 
             <p className="text-sm">
@@ -696,9 +712,9 @@ function ProjectCard({
             </p>
           </div>
         ) : imageError ? (
-          <div className="text-center text-[#9c9ea8]">
+          <div className="px-4 text-center text-[#9c9ea8]">
             <ImagePlus
-              className="mx-auto mb-3 h-12 w-12"
+              className="mx-auto mb-3 h-10 w-10 sm:h-12 sm:w-12"
               strokeWidth={1.5}
             />
 
@@ -708,45 +724,40 @@ function ProjectCard({
           </div>
         ) : (
           <ImagePlus
-            className="h-12 w-12 text-[#b2b5bf]"
+            className="h-10 w-10 text-[#b2b5bf] sm:h-12 sm:w-12"
             strokeWidth={1.5}
           />
         )}
+
+        {/* Timeline badge */}
+        <div className="absolute right-3 top-3 max-w-[calc(100%-24px)] rounded-xl bg-[#f1c17d] px-3 py-2 text-xs font-medium text-[#8a5a23] shadow-sm sm:right-5 sm:top-5 sm:rounded-2xl sm:px-4 sm:py-2.5 sm:text-[16px]">
+          <span className="break-words">
+            {project.start_date} -{" "}
+            {project.end_date}
+          </span>
+        </div>
       </div>
 
-      <div className="absolute right-5 top-5 rounded-2xl bg-[#f1c17d] px-4 py-2.5 text-[16px] font-medium text-[#8a5a23] shadow-sm">
-        {project.start_date} -{" "}
-        {project.end_date}
-      </div>
-
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-[#30323b]">
+      {/* Project information */}
+      <div className="p-4 sm:p-6">
+        <h3 className="break-words text-lg font-semibold text-[#30323b] sm:text-xl">
           {project.title}
         </h3>
 
-        <p className="mt-3 text-[16px] leading-7 text-[#6d707b]">
+        <p className="mt-2 break-words text-sm leading-6 text-[#6d707b] sm:mt-3 sm:text-[16px] sm:leading-7">
           {project.description}
         </p>
       </div>
 
+      {/* Admin delete button */}
       {currentUser?.role ===
         "admin" && (
-        <div className="absolute bottom-5 right-5 flex flex-col gap-3">
-        {/*  <button
-            type="button"
-            className="rounded-2xl bg-white p-4 text-[#585b67] shadow-lg transition hover:scale-[1.02]"
-          >
-            <Pencil
-              className="h-5 w-5"
-              strokeWidth={2}
-            />
-          </button>*/} 
-
+        <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5">
           <button
             type="button"
             onClick={handleDelete}
             disabled={deleting}
-            className="rounded-2xl bg-white p-4 text-[#ff4e4e] shadow-lg transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-xl bg-white p-3 text-[#ff4e4e] shadow-lg transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-2xl sm:p-4"
             title={
               deleting
                 ? "Deleting..."
@@ -778,7 +789,7 @@ export default function ProjectsPanel({
   onProjectCreated,
 }) {
   return (
-    <div className="space-y-8">
+    <div className="w-full min-w-0 space-y-6 sm:space-y-8">
       <ProjectForm
         currentUser={currentUser}
         onProjectCreated={
@@ -786,26 +797,28 @@ export default function ProjectsPanel({
         }
       />
 
-      <div className="flex justify-end">
-        <button
-          type="button"
-          className="flex items-center gap-2 rounded-full px-3 py-2 text-[#575a66] transition hover:bg-white"
-        >
-         
-        </button>
-      </div>
+      {projects.length > 0 && (
+        <div className="flex w-full min-w-0 justify-end">
+          <button
+            type="button"
+            className="flex items-center gap-2 rounded-full px-3 py-2 text-[#575a66] transition hover:bg-white"
+          >
+          </button>
+        </div>
+      )}
 
-      {projects.map((project) => (
-        <ProjectCard
-          key={project.id}
-          project={project}
-          currentUser={currentUser}
-          onProjectDeleted={
-            onProjectCreated
-          }
-        />
-      ))}
+      <div className="w-full min-w-0 space-y-6 sm:space-y-8">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            currentUser={currentUser}
+            onProjectDeleted={
+              onProjectCreated
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 }
-
