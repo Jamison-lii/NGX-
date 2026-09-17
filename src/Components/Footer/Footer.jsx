@@ -70,16 +70,7 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="font-bold text-slate-900 uppercase tracking-widest text-xs">Stay Informed</h4>
             <p className="text-slate-500 text-sm">Join our mission updates.</p>
-            <div className="relative">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#4169E1] transition-colors"
-              />
-              <button className="absolute right-2 top-2 bg-[#4169E1] text-white p-1.5 rounded-lg hover:bg-blue-700 transition-colors">
-                <Send size={16} />
-              </button>
-            </div>
+           
           </div>
 
         </div>
@@ -89,11 +80,7 @@ const Footer = () => {
           <p className="text-slate-400 text-xs">
             © 2025 <span className="font-bold text-slate-900">Non Governmental Xenials.</span> All rights reserved.
           </p>
-          <div className="flex gap-8">
-            <a href="#" className="text-slate-400 hover:text-slate-900 text-xs transition-colors">Privacy Policy</a>
-            <a href="#" className="text-slate-400 hover:text-slate-900 text-xs transition-colors">Terms of Service</a>
-            <a href="#" className="text-slate-400 hover:text-slate-900 text-xs transition-colors">Internal Security</a>
-          </div>
+          
         </div>
       </div>
     </footer>
